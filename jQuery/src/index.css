@@ -2,3 +2,10 @@
     margin: 50px;
     width: 90vw;
 }
+
+.custom-textarea-class
+	> div.dx-texteditor-container
+	> div.dx-texteditor-input-container
+	> textarea.dx-texteditor-input {
+	line-height: 20px;
+}
