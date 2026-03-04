@@ -58,12 +58,9 @@ const employeesStore = new DevExpress.data.ArrayStore({
 					},
 					cellTemplate: function (element, info) {
 						$("<div>")
-							.appendTo(element)
+							.addClass("notes-cell-content")
 							.text(info.value)
-							.css("width", info.column.width - 20)
-							.css("height", "auto")
-							.css("white-space", "normal")
-							.css("overflow-wrap", "break-word");
+							.appendTo(element);
 					}
 				}
 			]
