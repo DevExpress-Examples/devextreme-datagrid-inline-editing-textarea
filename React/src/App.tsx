@@ -1,56 +1,63 @@
-import { useMemo, useRef } from 'react';
-import './App.css';
-import 'devextreme/dist/css/dx.material.blue.light.compact.css';
-import DataGrid, { Editing, Paging, Column, Lookup } from 'devextreme-react/data-grid';
 import type { DataGridRef, DataGridTypes } from 'devextreme-react/data-grid';
-import TextArea from 'devextreme-react/text-area';
+import DataGrid, {
+  Column, Editing, Lookup, Paging,
+} from 'devextreme-react/data-grid';
 import type { TextAreaTypes } from 'devextreme-react/text-area';
+import TextArea from 'devextreme-react/text-area';
 import ArrayStore from 'devextreme/data/array_store';
-import { employees, states } from './data';
+import 'devextreme/dist/css/dx.material.blue.light.compact.css';
+import { useCallback, useMemo, useRef } from 'react';
+import './App.css';
+import { employees, states } from './data.tsx';
 
 type TextAreaElement = HTMLElement & {
   prevClientHeight?: number;
+};
+
+const textAreaElementAttr = {
+  class: 'custom-textarea-class',
 };
 
 function App(): JSX.Element {
   const grid = useRef<DataGridRef>(null);
 
   const employeesStore = useMemo(
-    () =>
-      new ArrayStore({
-        key: 'ID',
-        data: employees,
-      }),
+    () => new ArrayStore({
+      key: 'ID',
+      data: employees,
+    }),
     [],
   );
 
-  const notesEditorRender = (cell: DataGridTypes.ColumnEditCellTemplateData) => {
-    const onValueChanged = (e: TextAreaTypes.ValueChangedEvent) => cell.setValue(e.value);
+  const handleNotesInput = useCallback((args: TextAreaTypes.InputEvent) => {
+    const el = args.element as TextAreaElement;
 
-    const onNotesInput = (args: TextAreaTypes.InputEvent) => {
-      const el = args.element as TextAreaElement;
-      if (el.prevClientHeight !== el.clientHeight) {
-        grid.current?.instance().updateDimensions();
-      }
-      el.prevClientHeight = el.clientHeight;
-    };
+    if (el.prevClientHeight !== el.clientHeight) {
+      grid.current?.instance().updateDimensions();
+    }
+
+    el.prevClientHeight = el.clientHeight;
+  }, []);
+
+  const notesEditorRender = useCallback((cell: DataGridTypes.ColumnEditCellTemplateData) => {
+    const handleValueChanged = useCallback((e: TextAreaTypes.ValueChangedEvent) => {
+      cell.setValue(e.value);
+    }, [cell]);
 
     return (
       <TextArea
         defaultValue={cell.value}
-        onValueChanged={onValueChanged}
-        elementAttr={{
-          class: 'custom-textarea-class',
-        }}
+        onValueChanged={handleValueChanged}
+        elementAttr={textAreaElementAttr}
         autoResizeEnabled={true}
-        onInput={onNotesInput}
+        onInput={handleNotesInput}
       />
     );
-  };
+  }, [handleNotesInput]);
 
-  const notesCellRender = (cellInfo: DataGridTypes.ColumnCellTemplateData) => (
-    <div className='notes-cell-content'>{cellInfo.value}</div>
-  );
+  const notesCellRender = useCallback((cellInfo: DataGridTypes.ColumnCellTemplateData) => (
+      <div className='notes-cell-content'>{cellInfo.value}</div>
+  ), []);
 
   return (
     <DataGrid ref={grid} dataSource={employeesStore} showBorders={true}>
