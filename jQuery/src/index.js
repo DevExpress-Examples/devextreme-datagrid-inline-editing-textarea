@@ -41,21 +41,8 @@ const employeesStore = new DevExpress.data.ArrayStore({
 				},
 				{
 					dataField: "Notes",
-					editorType: "dxTextArea",
 					width: 300,
-					editorOptions: {
-						elementAttr: {
-							class: "custom-textarea-class"
-						},
-						autoResizeEnabled: true,
-						onInput(args) {
-							var el = args.element[0];
-							if (el.prevClientHeight !== el.clientHeight) {
-								dataGrid.updateDimensions();
-							}
-							el.prevClientHeight = el.clientHeight;
-						}
-					},
+					editCellTemplate: textAreaEditorTemplate,
 					cellTemplate: function (element, info) {
 						$("<div>")
 							.addClass("notes-cell-content")
@@ -66,4 +53,33 @@ const employeesStore = new DevExpress.data.ArrayStore({
 			]
 		})
 		.dxDataGrid("instance");
+
+		function textAreaEditorTemplate(cellElement, cellInfo) {
+			let firstTime = true
+			return $("<div>").dxTextArea({
+				value: cellInfo.value,
+				elementAttr: {
+					class: "custom-textarea-class"
+				},
+				autoResizeEnabled: true,
+				onValueChanged(e) {
+        			cellInfo.setValue(e.value);
+      			},
+				onInput(args) {
+					var el = args.element[0];
+					if (el.prevClientHeight !== el.clientHeight) {
+						dataGrid.updateDimensions();
+					}
+					el.prevClientHeight = el.clientHeight;
+				},
+				onContentReady(e){
+              		if (firstTime) {
+              		  firstTime = false
+              		  setTimeout(()=>{
+              		    e.component.repaint()
+              		  })
+              		}
+            	},
+			});
+		}
 });
