@@ -55,13 +55,22 @@ const employeesStore = new DevExpress.data.ArrayStore({
 		.dxDataGrid("instance");
 
 		function textAreaEditorTemplate(cellElement, cellInfo) {
-			let firstTime = true
-			return $("<div>").dxTextArea({
+			let divContainer = $("<div>");
+			cellElement.append(divContainer);
+			
+			$(divContainer).dxTextArea({
 				value: cellInfo.value,
 				elementAttr: {
 					class: "custom-textarea-class"
 				},
 				autoResizeEnabled: true,
+				onInitialized(e) {
+    				e.component.registerKeyHandler("enter", function(event) {
+    					if (!event.ctrlKey && !event.shiftKey) {
+    						event.stopPropagation();
+    					}
+    				});
+    			},
 				onValueChanged(e) {
         			cellInfo.setValue(e.value);
       			},
@@ -72,14 +81,6 @@ const employeesStore = new DevExpress.data.ArrayStore({
 					}
 					el.prevClientHeight = el.clientHeight;
 				},
-				onContentReady(e){
-              		if (firstTime) {
-              		  firstTime = false
-              		  setTimeout(()=>{
-              		    e.component.repaint()
-              		  })
-              		}
-            	},
 			});
 		}
 });
