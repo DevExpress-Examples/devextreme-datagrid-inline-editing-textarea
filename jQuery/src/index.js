@@ -1,7 +1,7 @@
 import { employees, states } from "./data.js";
 
 $(() => {
-const employeesStore = new DevExpress.data.ArrayStore({
+	const employeesStore = new DevExpress.data.ArrayStore({
 		key: "ID",
 		data: employees
 	});
@@ -43,12 +43,7 @@ const employeesStore = new DevExpress.data.ArrayStore({
 					dataField: "Notes",
 					width: 300,
 					editCellTemplate: textAreaEditorTemplate,
-					cellTemplate: function (element, info) {
-						$("<div>")
-							.addClass("notes-cell-content")
-							.text(info.value)
-							.appendTo(element);
-					}
+					cellTemplate: notesCellTemplate
 				}
 			]
 		})
@@ -82,5 +77,12 @@ const employeesStore = new DevExpress.data.ArrayStore({
 					el.prevClientHeight = el.clientHeight;
 				},
 			});
+		}
+
+		function notesCellTemplate(cellElement, cellInfo) {
+			$("<div>")
+				.addClass("notes-cell-content")
+				.text(cellInfo.value)
+				.appendTo(cellElement);
 		}
 });
