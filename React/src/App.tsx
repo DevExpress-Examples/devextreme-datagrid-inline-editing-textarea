@@ -1,4 +1,4 @@
-import type { DataGridRef, DataGridTypes } from 'devextreme-react/data-grid';
+import type { DataGridTypes } from 'devextreme-react/data-grid';
 import DataGrid, {
   Column, Editing, Lookup, Paging,
 } from 'devextreme-react/data-grid';
@@ -6,7 +6,7 @@ import type { TextAreaTypes } from 'devextreme-react/text-area';
 import TextArea from 'devextreme-react/text-area';
 import ArrayStore from 'devextreme/data/array_store';
 import 'devextreme/dist/css/dx.material.blue.light.compact.css';
-import { useCallback, useMemo, useRef } from 'react';
+import { useCallback, useMemo } from 'react';
 import './App.css';
 import { employees, states } from './data.tsx';
 
@@ -19,8 +19,6 @@ const textAreaElementAttr = {
 };
 
 function App(): JSX.Element {
-  const grid = useRef<DataGridRef>(null);
-
   const employeesStore = useMemo(
     () => new ArrayStore({
       key: 'ID',
@@ -29,20 +27,20 @@ function App(): JSX.Element {
     [],
   );
 
-  const handleNotesInput = useCallback((args: TextAreaTypes.InputEvent) => {
-    const el = args.element as TextAreaElement;
-
-    if (el.prevClientHeight !== el.clientHeight) {
-      grid.current?.instance().updateDimensions();
-    }
-
-    el.prevClientHeight = el.clientHeight;
-  }, []);
-
   const notesEditorRender = useCallback((cell: DataGridTypes.ColumnEditCellTemplateData) => {
     const handleValueChanged = useCallback((e: TextAreaTypes.ValueChangedEvent) => {
       cell.setValue(e.value);
     }, [cell]);
+
+    const handleNotesInput = useCallback((args: TextAreaTypes.InputEvent) => {
+      const el = args.element as TextAreaElement;
+
+      if (el.prevClientHeight !== el.clientHeight) {
+        cell.component.updateDimensions();
+      }
+
+      el.prevClientHeight = el.clientHeight;
+    }, []);
 
     return (
       <TextArea
@@ -53,14 +51,14 @@ function App(): JSX.Element {
         onInput={handleNotesInput}
       />
     );
-  }, [handleNotesInput]);
+  }, []);
 
   const notesCellRender = useCallback((cellInfo: DataGridTypes.ColumnCellTemplateData) => (
       <div className='notes-cell-content'>{cellInfo.value}</div>
   ), []);
 
   return (
-    <DataGrid ref={grid} dataSource={employeesStore} showBorders={true}>
+    <DataGrid dataSource={employeesStore} showBorders={true}>
       <Paging enabled={false} />
       <Editing mode='cell' allowUpdating={true} />
 
