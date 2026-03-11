@@ -3,11 +3,11 @@ import DataGrid, {
   Column, Editing, Lookup, Paging,
 } from 'devextreme-react/data-grid';
 
-import ArrayStore from 'devextreme/data/array_store';
+import { ArrayStore } from 'devextreme-react/common/data';
 import 'devextreme/dist/css/dx.material.blue.light.compact.css';
 import { useCallback, useMemo } from 'react';
 import './App.css';
-import { employees, states } from './data.tsx';
+import { employees, states } from './data';
 import NotesTextAreaComponent from './NotesTextAreaComponent.tsx';
 
 function App(): JSX.Element {

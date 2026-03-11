@@ -11,23 +11,23 @@ const textAreaElementAttr = {
   class: 'custom-textarea-class',
 };
 
-function NotesTextAreaComponent(props: DataGridTypes.ColumnCellTemplateData) {
+function NotesTextAreaComponent({ data }: { data: DataGridTypes.ColumnEditCellTemplateData }) {
   const handleValueChanged = useCallback(
     (e: TextAreaTypes.ValueChangedEvent) => {
-      props.data.setValue(e.value);
+      data.setValue(e.value);
     },
-    [props.data],
+    [data.setValue],
   );
 
   const handleNotesInput = useCallback((args: TextAreaTypes.InputEvent) => {
     const el = args.element as TextAreaElement;
 
     if (el.prevClientHeight !== el.clientHeight) {
-      props.data.component.updateDimensions();
+      data.component.updateDimensions();
     }
 
     el.prevClientHeight = el.clientHeight;
-  }, [props.data]);
+  }, [data.component]);
 
   const handleOnInitialized = useCallback((e: TextAreaTypes.InitializedEvent) => {
     e.component?.registerKeyHandler('enter', (event: KeyboardEvent) => {
@@ -39,7 +39,7 @@ function NotesTextAreaComponent(props: DataGridTypes.ColumnCellTemplateData) {
 
   return (
     <TextArea
-      defaultValue={props.data.value}
+      defaultValue={data.value}
       onValueChanged={handleValueChanged}
       elementAttr={textAreaElementAttr}
       autoResizeEnabled={true}
