@@ -1,3 +1,51 @@
-<div class="default-style">
-  <dx-button [text]="buttonText" (onClick)="onClick($event)"></dx-button>
-</div>
+<dx-data-grid #dataGrid [dataSource]="dataSource" [showBorders]="true">
+  <dxo-data-grid-paging [enabled]="false"></dxo-data-grid-paging>
+  <dxo-data-grid-editing
+    mode="cell"
+    [allowUpdating]="true"
+  ></dxo-data-grid-editing>
+
+  <dxi-data-grid-column
+    dataField="Prefix"
+    caption="Title"
+    [width]="80"
+  ></dxi-data-grid-column>
+
+  <dxi-data-grid-column dataField="FirstName"></dxi-data-grid-column>
+  <dxi-data-grid-column dataField="LastName"></dxi-data-grid-column>
+
+  <dxi-data-grid-column
+    dataField="Position"
+    [width]="170"
+  ></dxi-data-grid-column>
+
+  <dxi-data-grid-column dataField="StateID" caption="State" [width]="125">
+    <dxo-data-grid-lookup
+      [dataSource]="states"
+      displayExpr="Name"
+      valueExpr="ID"
+    ></dxo-data-grid-lookup>
+  </dxi-data-grid-column>
+
+  <dxi-data-grid-column
+    dataField="Notes"
+    [width]="300"
+    editCellTemplate="textAreaEditorTemplate"
+    cellTemplate="notesCellTemplate"
+  ></dxi-data-grid-column>
+
+  <div *dxTemplate="let cellInfo of 'textAreaEditorTemplate'">
+    <dx-text-area
+      [value]="cellInfo.value"
+      [autoResizeEnabled]="true"
+      [elementAttr]="{ class: 'custom-textarea-class' }"
+      (onInitialized)="onTextAreaInitialized($event)"
+      (onValueChanged)="cellInfo.setValue($event.value)"
+      (onInput)="onTextAreaInput($event)"
+    ></dx-text-area>
+  </div>
+
+  <div *dxTemplate="let cell of 'notesCellTemplate'">
+    <div class="notes-cell-content">{{ cell.value }}</div>
+  </div>
+</dx-data-grid>
