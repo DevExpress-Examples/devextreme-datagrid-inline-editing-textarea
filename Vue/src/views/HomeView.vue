@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import HomeContent from '../components/HomeContent.vue';
+import DataGridTextArea from '@/components/DataGridTextArea.vue';
 </script>
 
 <template>
-  <HomeContent text="Count"/>
+  <DataGridTextArea/>
 </template>
-
