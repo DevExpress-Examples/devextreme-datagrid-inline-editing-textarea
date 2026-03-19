@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { ArrayStore } from 'devextreme-angular/common/data';
 import { DxDataGridComponent } from 'devextreme-angular/ui/data-grid';
-import { DxTextAreaTypes } from "devextreme-angular/ui/text-area";
+import type { DxTextAreaTypes } from "devextreme-angular/ui/text-area";
 import { Service, State } from './app.service';
 
 type TextAreaElement = HTMLElement & {
