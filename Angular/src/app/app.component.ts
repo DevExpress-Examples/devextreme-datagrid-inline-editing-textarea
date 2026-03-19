@@ -17,6 +17,7 @@ type TextAreaElement = HTMLElement & {
 
 export class AppComponent {
   @ViewChild('dataGrid', { static: false }) dataGrid!: DxDataGridComponent;
+  
   dataSource: ArrayStore;
 
   states: State[];
