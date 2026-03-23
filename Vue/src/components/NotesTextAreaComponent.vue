@@ -11,7 +11,7 @@
 
 <script setup lang="ts">
 import { type DxDataGridTypes } from 'devextreme-vue/data-grid';
-import type { DxTextAreaTypes } from 'devextreme-vue/text-area';
+import { type DxTextAreaTypes } from 'devextreme-vue/text-area';
 import DxTextArea from 'devextreme-vue/text-area';
 
 type TextAreaElement = HTMLElement & {
