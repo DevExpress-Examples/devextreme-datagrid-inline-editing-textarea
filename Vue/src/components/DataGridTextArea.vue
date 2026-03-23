@@ -40,14 +40,17 @@
         data-field="Notes"
         :width="300"
         edit-cell-template="textAreaEditorTemplate"
-        :cell-template="notesCellTemplate"
+        cell-template="notesCellTemplate"
       />
 
       <template #textAreaEditorTemplate="{ data: cellInfo }">
-        <NotesTextAreaComponent
-          :cell-info="cellInfo"
-          :data-grid-component="cellInfo.component"
-        />
+        <NotesTextAreaComponent :cell-info="cellInfo"/>
+      </template>
+
+      <template #notesCellTemplate="{ data }">
+        <div class="notes-cell-content">
+          {{ data.value }}
+        </div>
       </template>
     </DxDataGrid>
   </div>
@@ -59,7 +62,6 @@ import DxDataGrid, {
   DxEditing,
   DxLookup,
   DxPaging,
-  type DxDataGridTypes,
 } from 'devextreme-vue/data-grid';
 import { ArrayStore } from 'devextreme-vue/common/data';
 import 'devextreme/dist/css/dx.material.blue.light.compact.css';
@@ -70,15 +72,6 @@ const employeesStore = new ArrayStore({
   key: 'ID',
   data: employees,
 });
-
-const notesCellTemplate = (
-  container: HTMLElement,
-  options: DxDataGridTypes.ColumnCellTemplateData,
-) => {
-  const cellValue = options.value as string;
-  container.className = 'notes-cell-content';
-  container.textContent = cellValue;
-};
 </script>
 
 <style>

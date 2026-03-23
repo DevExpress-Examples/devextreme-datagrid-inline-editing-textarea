@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import { DxDataGrid, type DxDataGridTypes } from 'devextreme-vue/data-grid';
+import { type DxDataGridTypes } from 'devextreme-vue/data-grid';
 import type { DxTextAreaTypes } from 'devextreme-vue/text-area';
 import DxTextArea from 'devextreme-vue/text-area';
 
@@ -18,9 +18,8 @@ type TextAreaElement = HTMLElement & {
   prevClientHeight?: number;
 };
 
-const props = defineProps<{
+const { cellInfo } = defineProps<{
   cellInfo: DxDataGridTypes.ColumnEditCellTemplateData;
-  dataGridComponent: DxDataGrid['instance'];
 }>();
 
 const onTextAreaInitialized = (e: DxTextAreaTypes.InitializedEvent) => {
@@ -36,13 +35,13 @@ const onTextAreaInput = (e: DxTextAreaTypes.InputEvent) => {
   if (!el) return;
 
   if (el.prevClientHeight !== el.clientHeight) {
-    props.dataGridComponent?.updateDimensions();
+    cellInfo.component?.updateDimensions();
   }
 
   el.prevClientHeight = el.clientHeight;
 };
 
 const onValueChanged = (e: DxTextAreaTypes.ValueChangedEvent) => {
-  props.cellInfo.setValue(e.value);
+  cellInfo.setValue(e.value);
 };
 </script>
