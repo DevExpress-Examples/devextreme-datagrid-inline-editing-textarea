@@ -1,29 +1,93 @@
 @using ASP_NET_Core.Models
 
-<h2>Home</h2>
-
-@(Html.DevExtreme().DataGrid<SampleOrder>()
+@(Html.DevExtreme().DataGrid<Employee>()
+    .ID("gridContainer")
+    .DataSource(d => d.Mvc().Controller("Employees")
+    .LoadAction("Get")
+    .UpdateAction("Put")
+    .Key("ID"))
     .ShowBorders(true)
-    .DataSource(d => d.Mvc().Controller("SampleData").LoadAction("Get").Key("OrderID"))
-    .Columns(columns => {
-        columns.AddFor(m => m.OrderID);
-        columns.AddFor(m => m.OrderDate);
-        columns.AddFor(m => m.CustomerName);
-        columns.AddFor(m => m.ShipCountry);
-        columns.AddFor(m => m.ShipCity);
-    })
-    .Paging(p => p.PageSize(10))
-    .FilterRow(f => f.Visible(true))
-    .HeaderFilter(f => f.Visible(true))
-    .GroupPanel(p => p.Visible(true))
-    .Grouping(g => g.AutoExpandAll(false))
-    .RemoteOperations(true)
-    .Summary(s => s
-        .TotalItems(totalItems => {
-            totalItems.AddFor(m => m.ShipCity).SummaryType(SummaryType.Count);
-        })
-        .GroupItems(groupItems => {
-            groupItems.Add().SummaryType(SummaryType.Count);
-        })
+    .Paging(p => p.Enabled(false))
+    .Editing(e => e
+        .Mode(GridEditMode.Cell)
+        .AllowUpdating(true)
     )
+    .Columns(columns => {
+        columns.AddFor(m => m.Prefix)
+            .Caption("Title")
+            .Width(80);
+        columns.AddFor(m => m.FirstName);
+        columns.AddFor(m => m.LastName);
+        columns.AddFor(m => m.Position)
+            .Width(170);
+        columns.AddFor(m => m.StateID)
+            .Caption("State")
+            .Width(125)
+            .Lookup(lookup => lookup
+                .DataSource(SampleData.States)
+                .DisplayExpr("Name")
+                .ValueExpr("ID")
+            );
+        columns.AddFor(m => m.Notes)
+            .Width(300)
+            .EditCellTemplate(new TemplateName("textAreaEditorTemplate"))
+            .CellTemplate(new TemplateName("notesCellTemplate"));
+    })
 )
+
+@using (Html.DevExtreme().NamedTemplate("textAreaEditorTemplate")) {
+    @(Html.DevExtreme().TextArea()
+        .Value(new JS("value"))
+        .ElementAttr(new { @class = "custom-textarea-class" })
+        .AutoResizeEnabled(true)
+        .OnInitialized("onTextAreaInitialized")
+        .OnValueChanged("function(e) { setValue(e.value); }")
+        .OnInput("onTextAreaInput")
+    )
+}
+
+@using (Html.DevExtreme().NamedTemplate("notesCellTemplate")) {
+    <div class="notes-cell-content"><%- value %></div>
+}
+
+<script>
+    function onTextAreaInitialized(e) {
+        e.component.registerKeyHandler("enter", function(event) {
+            if (!event.ctrlKey && !event.shiftKey) {
+                event.stopPropagation();
+            }
+        });
+    }
+
+    function onTextAreaInput(args) {
+        const dataGrid = $("#gridContainer").dxDataGrid("instance");
+        const el = args.element[0];
+
+        if (el.prevClientHeight !== el.clientHeight) {
+            dataGrid.updateDimensions();
+        }
+
+        el.prevClientHeight = el.clientHeight;
+    }
+</script>
+
+
+<style>
+.custom-textarea-class
+	> div.dx-texteditor-container
+	> div.dx-texteditor-input-container
+	> textarea.dx-texteditor-input {
+	line-height: 16px;
+	padding: 10px 11px !important;
+}
+
+.dx-textarea > .dx-texteditor-container > .dx-texteditor-input-container {
+	margin: 0;
+}
+
+.notes-cell-content {
+	height: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+</style>
