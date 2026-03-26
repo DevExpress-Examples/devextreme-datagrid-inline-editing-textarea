@@ -4,19 +4,19 @@
 [![](https://img.shields.io/badge/📖_How_to_use_DevExpress_Examples-e9f6fc?style=flat-square)](https://docs.devexpress.com/GeneralInformation/403183)
 [![](https://img.shields.io/badge/💬_Leave_Feedback-feecdd?style=flat-square)](#does-this-example-address-your-development-requirementsobjectives)
 <!-- default badges end -->
-# DevExtreme Examples Template
+# DevExtreme DataGrid - Inline editing with TextArea
 
-This is the repository template for creating new examples. 
+This example demonstrates how to use TextArea as a column editor to maintain multi-line texts while editing. 
 
-![Example image](images/image-template.png)
+![DevExtreme DataGrid - Inline editing with TextArea](images/datagrid-inline-editing-textarea.gif)
 
-Use **DevExtreme _Product_ - _Task_** template for a title. 
+Purpose:
 
-Describe the solved task in this section.
+Show how to display and edit multi-line content without the editor shrinking or breaking the layout.
 
-Put a screenshot/gif that illustrates the result here.
+## Implementation Details
 
-Then, add implementation details (steps, code snippets, and other technical information in a free form), or add a link to an existing document with implementation details. 
+Use editCellTemplate to replace the column editor with a TextArea. Enable TextArea.autoResizeEnabled and call the DataGrid.updateDimensions() method in the TextArea.onInput event handler to update the UI when the height changes. Use CSS to display multi-line content via cellTemplate and align the cell appearance with the TextArea for a smooth transition.
 
 ## Files to Review
 
@@ -36,15 +36,11 @@ Then, add implementation details (steps, code snippets, and other technical info
 
 ## Documentation
 
-- link
-- link
-- ...
+- [DataGrid.columns.editCellTemplate](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/columns/#cellTemplate)
+- [DataGrid.columns.cellTemplate](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/columns/#editCellTemplate)
+- [TextArea.autoResizeEnabled](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxTextArea/Configuration/#autoResizeEnabled)
+- [TextArea.onInput](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxTextArea/Configuration/#onInput)
 
-## More Examples
-
-- link
-- link
-- ...
 <!-- feedback -->
 ## Does This Example Address Your Development Requirements/Objectives?
 
