@@ -6,17 +6,13 @@
 <!-- default badges end -->
 # DevExtreme DataGrid - Inline editing with TextArea
 
-This example demonstrates how to use TextArea as a column editor to maintain multi-line texts while editing. 
+This example demonstrates how to display and edit multi-line content without the editor shrinking or breaking the layout.
 
 ![DevExtreme DataGrid - Inline editing with TextArea](images/datagrid-inline-editing-textarea.gif)
 
-Purpose:
-
-Show how to display and edit multi-line content without the editor shrinking or breaking the layout.
-
 ## Implementation Details
 
-Use editCellTemplate to replace the column editor with a TextArea. Enable TextArea.autoResizeEnabled and call the DataGrid.updateDimensions() method in the TextArea.onInput event handler to update the UI when the height changes. Use CSS to display multi-line content via cellTemplate and align the cell appearance with the TextArea for a smooth transition.
+Use CSS in cellTemplate to display multi-line content. Then use editCellTemplate to replace the column editor with a TextArea. Enable TextArea.autoResizeEnabled and call the DataGrid.updateDimensions() method in the TextArea.onInput event handler to update the UI when the height changes. Apply CSS to align the appearance of cellTemplate and editCellTemplate for a smooth transition.
 
 ## Files to Review
 
@@ -38,6 +34,7 @@ Use editCellTemplate to replace the column editor with a TextArea. Enable TextAr
 
 - [DataGrid.columns.editCellTemplate](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/columns/#cellTemplate)
 - [DataGrid.columns.cellTemplate](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/columns/#editCellTemplate)
+- [DataGrid.updateDimensions()](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Methods/#updateDimensions)
 - [TextArea.autoResizeEnabled](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxTextArea/Configuration/#autoResizeEnabled)
 - [TextArea.onInput](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxTextArea/Configuration/#onInput)
 
