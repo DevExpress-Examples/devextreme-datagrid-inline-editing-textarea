@@ -2,10 +2,12 @@
 
 @(Html.DevExtreme().DataGrid<Employee>()
     .ID("gridContainer")
-    .DataSource(d => d.Mvc().Controller("Employees")
-    .LoadAction("Get")
-    .UpdateAction("Put")
-    .Key("ID"))
+    .DataSource(d => d.Mvc()
+        .Controller("Employees")
+        .LoadAction("Get")
+        .UpdateAction("Put")
+        .Key("ID")
+    )
     .ShowBorders(true)
     .Paging(p => p.Enabled(false))
     .Editing(e => e
@@ -24,7 +26,7 @@
             .Caption("State")
             .Width(125)
             .Lookup(lookup => lookup
-                .DataSource(SampleData.States)
+                .DataSource(SampleData.States, "ID")
                 .DisplayExpr("Name")
                 .ValueExpr("ID")
             );
