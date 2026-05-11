@@ -46,8 +46,8 @@ To implement a DevExtreme TextArea as a cell editor and maintain the grid layout
     }
     ```
 
-    > [!Note]
-    > This example specifies a custom class for TextArea components in the "Notes" column (using [elementAttr](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxTextArea/Configuration/#elementAttr)) to apply style changes only to editors within this column.
+> [!Note]
+> This example specifies a custom class for TextArea components in the "Notes" column (using [elementAttr](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxTextArea/Configuration/#elementAttr)) to apply style changes only to editors within this column.
 
 3. Configure the **dxTextArea**.[onInput](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxTextArea/Configuration/#onInput) handler and call **dxDataGrid**.[updateDimensions()](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Methods/#updateDimensions).
 
