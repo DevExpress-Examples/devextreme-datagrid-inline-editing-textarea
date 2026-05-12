@@ -4,15 +4,15 @@
 [![](https://img.shields.io/badge/📖_How_to_use_DevExpress_Examples-e9f6fc?style=flat-square)](https://docs.devexpress.com/GeneralInformation/403183)
 [![](https://img.shields.io/badge/💬_Leave_Feedback-feecdd?style=flat-square)](#does-this-example-address-your-development-requirementsobjectives)
 <!-- default badges end -->
-# DevExtreme DataGrid - Multi-Line Text Editing using DevExtreme TextArea
+# DevExtreme DataGrid - Multiline Text Editing using DevExtreme TextArea
 
-This example displays long strings in multiple lines within dxDataGrid cells. In edit mode, this example maintains the grid layout using a DevExtreme TextArea as a cell editor.
+This example displays long string values as multiple rows of text within dxDataGrid cells. In edit mode, the DataGrid uses a TextArea as a cell editor.
 
-![DevExtreme DataGrid - Multi-Line Text Editing using DevExtreme TextArea](images/datagrid-inline-editing-textarea.gif)
+![DevExtreme DataGrid - Multiline Text Editing using DevExtreme TextArea](images/datagrid-inline-editing-textarea.gif)
 
 ## Implementation Details
 
-To display long strings in multiple lines within dxDataGrid cells, apply the following CSS styles to grid cell containers:
+To display long text within dxDataGrid cells, apply the following CSS styles to grid cell containers:
 
 ```css
 tr.dx-data-row td {
@@ -22,14 +22,13 @@ tr.dx-data-row td {
 }
 ```
 
-> [!Note]
-> This example specifies a custom class for the "Notes" column (using **columns[]**.[cellTemplate](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/columns/#cellTemplate)) to apply multi-line styles only to this column.
+This example applies multiline styles to the **Notes** column only.
 
-To implement a DevExtreme TextArea as a cell editor and maintain the grid layout in edit mode, follow these steps:
+Follow the steps below to use a DevExtreme TextArea as a cell editor:
 
-1. Define **dxDataGrid**.**columns[]**.[editCellTemplate](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/columns/#editCellTemplate) and configure a TextArea component. Enable **dxTextArea**.[autoResizeEnabled](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxTextArea/Configuration/#autoResizeEnabled) to avoid text truncation.
+1. Define the **dxDataGrid**.**columns[]**.[editCellTemplate](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/columns/#editCellTemplate) and configure a TextArea component as needed. Enable the **dxTextArea**.[autoResizeEnabled](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxTextArea/Configuration/#autoResizeEnabled) option to avoid text truncation.
 
-2. Apply the following CSS styles to ensure cell appearance consistency in edit mode:
+2. Apply the following CSS styles to ensure consistent cell appearance in edit mode:
 
     ```css
     .dx-editor-cell
@@ -47,10 +46,9 @@ To implement a DevExtreme TextArea as a cell editor and maintain the grid layout
     ```
 
 > [!Note]
-> - These styles are specific to the theme applied in this example (Material Blue Light Compact). Update these styles to ensure visual consistency in other themes.
-> - This example specifies a custom class for TextArea components in the "Notes" column (using [elementAttr](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxTextArea/Configuration/#elementAttr)) to apply style changes only to editors within this column.
+> - These styles are specific to the theme used in this example (Material Blue Light Compact). Update styles to ensure visual consistency in other themes.
 
-3. Configure the **dxTextArea**.[onInput](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxTextArea/Configuration/#onInput) handler and call **dxDataGrid**.[updateDimensions()](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Methods/#updateDimensions).
+3. In the **dxTextArea**.[onInput](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxTextArea/Configuration/#onInput) event handler, call the **dxDataGrid**.[updateDimensions()](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Methods/#updateDimensions) method.
 
 **jQuery**:
 
