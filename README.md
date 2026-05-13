@@ -50,10 +50,10 @@ Follow the steps below to use a DevExtreme TextArea as a cell editor:
 
 3. In the **dxTextArea**.[onInput](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxTextArea/Configuration/#onInput) event handler, call the **dxDataGrid**.[updateDimensions()](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Methods/#updateDimensions) method.
 
-<details>
-<summary>Code Snippets</summary>
+## Code Examples
 
-**jQuery**:
+<details>
+<summary>jQuery</summary>
 
 ```js
 const dataGrid = $("#gridContainer").dxDataGrid({
@@ -80,7 +80,10 @@ function textAreaEditorTemplate(cellElement, cellInfo) {
 }
 ```
 
-**Angular**:
+</details>
+
+<details>
+<summary>Angular</summary>
 
 ```html
 <dx-data-grid #dataGrid>
@@ -118,7 +121,10 @@ export class AppComponent {
 }
 ```
 
-**Vue**:
+</details>
+
+<details>
+<summary>Vue</summary>
 
 ```vue
 <template>
@@ -160,7 +166,10 @@ const onTextAreaInput = (e: DxTextAreaTypes.InputEvent) => {
 </template>
 ```
 
-**React**:
+</details>
+
+<details>
+<summary>React</summary>
 
 ```tsx
 import { DataGrid, type DataGridTypes } from 'devextreme-react/data-grid';
@@ -194,7 +203,10 @@ function App(): JSX.Element {
 }
 ```
 
-**ASP.NET Core**:
+</details>
+
+<details>
+<summary>ASP.NET Core</summary>
 
 ```razor
 @(Html.DevExtreme().DataGrid<Employee>()
