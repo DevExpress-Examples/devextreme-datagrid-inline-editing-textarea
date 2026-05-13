@@ -50,6 +50,9 @@ Follow the steps below to use a DevExtreme TextArea as a cell editor:
 
 3. In the **dxTextArea**.[onInput](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxTextArea/Configuration/#onInput) event handler, call the **dxDataGrid**.[updateDimensions()](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Methods/#updateDimensions) method.
 
+<details>
+<summary>Code Snippets</summary>
+
 **jQuery**:
 
 ```js
@@ -222,6 +225,8 @@ function App(): JSX.Element {
     }
 </script>
 ```
+
+</details>
 
 ## Files to Review
 
