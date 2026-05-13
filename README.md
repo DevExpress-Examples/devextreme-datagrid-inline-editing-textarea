@@ -247,9 +247,12 @@ function App(): JSX.Element {
     - [app.component.ts](Angular/src/app/app.component.ts)
 - **React**
     - [App.tsx](React/src/App.tsx)
+    - [NotesTextAreaComponent.tsx](React/src/NotesTextAreaComponent.tsx)
 - **Vue**
     - [App.vue](Vue/src/App.vue)
     - [Home.vue](Vue/src/components/HomeContent.vue)
+    - [DataGridTextArea.vue](Vue/src/components/DataGridTextArea.vue)
+    - [NotesTextAreaComponent.vue](Vue/src/components/NotesTextAreaComponent.vue)
 - **jQuery**
     - [index.html](jQuery/src/index.html)
     - [index.js](jQuery/src/index.js)
