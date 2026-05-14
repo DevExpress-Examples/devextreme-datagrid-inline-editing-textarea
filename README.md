@@ -4,15 +4,51 @@
 [![](https://img.shields.io/badge/📖_How_to_use_DevExpress_Examples-e9f6fc?style=flat-square)](https://docs.devexpress.com/GeneralInformation/403183)
 [![](https://img.shields.io/badge/💬_Leave_Feedback-feecdd?style=flat-square)](#does-this-example-address-your-development-requirementsobjectives)
 <!-- default badges end -->
-# DevExtreme DataGrid - Inline editing with TextArea
+# DevExtreme DataGrid - Multiline Text Editing using DevExtreme TextArea
 
-This example demonstrates how to display and edit multi-line content without the editor shrinking or breaking the layout.
+This example displays long string values as multiple rows of text within dxDataGrid cells. In edit mode, the DataGrid uses a TextArea as its cell editor.
 
-![DevExtreme DataGrid - Inline editing with TextArea](images/datagrid-inline-editing-textarea.gif)
+![DevExtreme DataGrid - Multiline Text Editing using DevExtreme TextArea](images/datagrid-inline-editing-textarea.gif)
 
 ## Implementation Details
 
-Use CSS in cellTemplate to display multi-line content. Then use editCellTemplate to replace the column editor with a TextArea. Enable TextArea.autoResizeEnabled and call the DataGrid.updateDimensions() method in the TextArea.onInput event handler to update the UI when the height changes. Apply CSS to align the appearance of cellTemplate and editCellTemplate for a smooth transition.
+To display long text blocks within dxDataGrid cells, apply the following CSS styles to grid cell containers:
+
+```css
+tr.dx-data-row td {
+	height: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+```
+
+This example applies multiline styles to the **Notes** column only.
+
+Follow the steps below to use the DevExtreme TextArea as a cell editor:
+
+1. Define **dxDataGrid**.**columns[]**.[editCellTemplate](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Configuration/columns/#editCellTemplate) and configure a TextArea component as needed. Enable the **dxTextArea**.[autoResizeEnabled](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxTextArea/Configuration/#autoResizeEnabled) option to avoid text truncation.
+
+2. Apply the following CSS styles to ensure consistent cell appearance in edit mode:
+
+    ```css
+    .dx-editor-cell
+        > .dx-textarea
+        > div.dx-texteditor-container
+        > div.dx-texteditor-input-container
+        > textarea.dx-texteditor-input {
+        line-height: 16px;
+        padding: 10px 11px !important;
+    }
+
+    .dx-textarea > .dx-texteditor-container > .dx-texteditor-input-container {
+        margin: 0 !important;
+    }
+    ```
+
+> [!Note]
+> These styles are specific to the theme used in this example (Material Blue Light Compact). Update styles to ensure visual consistency across other themes.
+
+3. In the **dxTextArea**.[onInput](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxTextArea/Configuration/#onInput) event handler, call the **dxDataGrid**.[updateDimensions()](https://js.devexpress.com/Documentation/ApiReference/UI_Components/dxDataGrid/Methods/#updateDimensions) method.
 
 ## Files to Review
 
@@ -21,9 +57,12 @@ Use CSS in cellTemplate to display multi-line content. Then use editCellTemplate
     - [app.component.ts](Angular/src/app/app.component.ts)
 - **React**
     - [App.tsx](React/src/App.tsx)
+    - [NotesTextAreaComponent.tsx](React/src/NotesTextAreaComponent.tsx)
 - **Vue**
     - [App.vue](Vue/src/App.vue)
     - [Home.vue](Vue/src/components/HomeContent.vue)
+    - [DataGridTextArea.vue](Vue/src/components/DataGridTextArea.vue)
+    - [NotesTextAreaComponent.vue](Vue/src/components/NotesTextAreaComponent.vue)
 - **jQuery**
     - [index.html](jQuery/src/index.html)
     - [index.js](jQuery/src/index.js)
