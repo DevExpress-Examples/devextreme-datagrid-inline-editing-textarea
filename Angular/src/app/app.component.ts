@@ -3,6 +3,7 @@ import { ArrayStore } from 'devextreme-angular/common/data';
 import { DxDataGridComponent } from 'devextreme-angular/ui/data-grid';
 import type { DxTextAreaTypes } from "devextreme-angular/ui/text-area";
 import { Service, State } from './app.service';
+import { DxDataGridModule, DxTextAreaModule } from 'devextreme-angular';
 
 type TextAreaElement = HTMLElement & {
   prevClientHeight?: number;
@@ -10,6 +11,7 @@ type TextAreaElement = HTMLElement & {
 
 @Component({
   selector: 'app-root',
+  imports: [DxDataGridModule, DxTextAreaModule],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   providers: [Service],
